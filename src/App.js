@@ -1,25 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useCallback, useState } from 'react';
+import Categories from './components/Categories';
+import NewsList from './components/NewsList';
 
-function App() {
+const App = () => {
+  // 기본 카테고리 state 선언
+  const [category, setCategory] = useState('all');
+  // 콜백으로 사용 할 카테고리 함수
+  const onSelect = useCallback((Category) => setCategory(Category), []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {/* props로 카테고리 state와 함수를 넘겨줌 */}
+      <Categories category={category} onSelect={onSelect} />
+      <NewsList category={category} />
+    </>
   );
-}
+};
 
 export default App;
